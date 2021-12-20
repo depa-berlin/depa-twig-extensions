@@ -1,0 +1,20 @@
+{
+  "name": "depa/depa-twig-extensions",
+  "description": "...",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Mirko Fenrich",
+      "email": "fenrich@designpark.de"
+    }
+  ],
+  "require": {
+    "twig/twig": "^v3.3.0",
+    "fileeye/mimemap": "^1.2"
+  },
+  "autoload": {
+    "psr-4": {
+      "Depa\\TwigExtensions\\": "src/"
+    }
+  }
+}
