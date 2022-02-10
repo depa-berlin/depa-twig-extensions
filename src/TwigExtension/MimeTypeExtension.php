@@ -3,6 +3,7 @@
 namespace Depa\TwigExtensions;
 
 use FileEye\MimeMap\Extension;
+use FileEye\MimeMap\MalformedTypeException;
 use FileEye\MimeMap\Type;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
@@ -35,13 +36,19 @@ class MimeTypeExtension extends AbstractExtension
      * @return string|null
      * @example {{ file.mime | mimetype('getDefaultExtension',true)}}
      */
-    function mimeTypeFilter(string $data, $type = 'getDefaultExtension', $strict = false): ?string
+    function mimeTypeFilter(?string $data, $type = 'getDefaultExtension', $strict = false): ?string
     {
+
         switch ($type) {
             case 'getDefaultExtension':
-                $mimeMapType = new Type($data);
-                return $mimeMapType->getDefaultExtension($strict);
-                break;
+                try {
+                    $mimeMapType = new Type($data);
+                    return $mimeMapType->getDefaultExtension($strict);
+                    break;
+                }catch (MalformedTypeException $e){
+                    return "";
+                    break;
+                }
             case 'getDefaultType':
                 $ext = new Extension($data);
                 return $ext->getDefaultType($strict);
